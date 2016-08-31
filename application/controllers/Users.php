@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Articles extends CI_Controller {
+class Users extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Articles_model','articles');
+		$this->load->model('Users_model','users');
 		if( !$this->session->userdata('is_logged_in') ){
 			redirect('/');
 		}
@@ -14,13 +14,18 @@ class Articles extends CI_Controller {
 
 	public function add()
 	{
-//		exit(json_encode($this->input->post()));
-		$this->articles->validate_article();
+		$this->users->validate_user_to_insert();
 		$data = [
-			"content" => "add_article",
-			"title" => "Agregar artículo"
+			"content" => "add_user",
+			"title" => "Agregar usuario"
 		];
 		$this->load->view('template/loader', $data);
+	}
+
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		redirect('/');
 	}
 
 }
